@@ -12,60 +12,65 @@ import { Lock, Key, Settings, Shield, Star, ChevronRight, Phone, Mail, MapPin, F
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useRef, useEffect } from 'react'
-
-// Enhanced animation variants
-const fadeInUp = {
-  initial: { opacity: 0, y: 80 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
-}
-
-const fadeInLeft = {
-  initial: { opacity: 0, x: -80 },
-  animate: { opacity: 1, x: 0 },
-  transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
-}
-
-const fadeInRight = {
-  initial: { opacity: 0, x: 80 },
-  animate: { opacity: 1, x: 0 },
-  transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
-}
-
-const scaleIn = {
-  initial: { opacity: 0, scale: 0.8 },
-  animate: { opacity: 1, scale: 1 },
-  transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }
-}
-
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1
-    }
-  }
-}
-
-const floatingAnimation = {
-  animate: {
-    y: [-10, 10, -10],
-    transition: {
-      duration: 4,
-      repeat: Infinity,
-      ease: "easeInOut" as const
-    }
-  }
-}
-
-// Enhanced scroll reveal hook
-const useScrollReveal = () => {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
-  return [ref, isInView]
-}
+import Hero from '@/components/Hero'
+import Partners from '@/components/Partners'
+import CaseStudies from '@/components/CaseStudy'
+import WhyChooseKazoalo from '@/components/Technology'
+import Products from '@/components/Products'
+import Footer from '@/components/Footer'
 
 export default function KazoaloLanding() {
+  // Enhanced animation variants (moved inside component to fix Next.js build error)
+  const fadeInUp = {
+    initial: { opacity: 0, y: 80 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
+  }
+
+  const fadeInLeft = {
+    initial: { opacity: 0, x: -80 },
+    animate: { opacity: 1, x: 0 },
+    transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
+  }
+
+  const fadeInRight = {
+    initial: { opacity: 0, x: 80 },
+    animate: { opacity: 1, x: 0 },
+    transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
+  }
+
+  const scaleIn = {
+    initial: { opacity: 0, scale: 0.8 },
+    animate: { opacity: 1, scale: 1 },
+    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }
+  }
+
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1
+      }
+    }
+  }
+
+  const floatingAnimation = {
+    animate: {
+      y: [-10, 10, -10],
+      transition: {
+        duration: 4,
+        repeat: Infinity,
+        ease: "easeInOut" as const
+      }
+    }
+  }
+
+  // Enhanced scroll reveal hook
+  const useScrollReveal = () => {
+    const ref = useRef(null)
+    const isInView = useInView(ref, { once: true, margin: "-100px" })
+    return [ref, isInView]
+  }
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [showScrollTop, setShowScrollTop] = useState(false)
   const { scrollYProgress } = useScroll()
@@ -215,225 +220,12 @@ export default function KazoaloLanding() {
         ref={heroRef}
         className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-emerald-900/20 to-slate-900 pt-16 overflow-hidden"
       >
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0">
-          {Array.from({ length: 20 }, (_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-2 h-2 bg-orange-500/20 rounded-full"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-              animate={{
-                y: [-20, 20, -20],
-                opacity: [0.2, 0.8, 0.2],
-              }}
-              transition={{
-                duration: 3 + Math.random() * 2,
-                repeat: Infinity,
-                delay: Math.random() * 2,
-              }}
-            />
-          ))}
-        </div>
-
-        <motion.div style={{ y: ySpring }} className="absolute inset-0 bg-[url('/images/herobg.png')] bg-cover bg-center opacity-5" />
-        
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div 
-            className="max-w-5xl mx-auto text-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-          >
-            <motion.div
-              className="mb-8 sm:mb-12"
-              variants={floatingAnimation}
-              animate="animate"
-            >
-              <motion.div
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ delay: 0.2, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="relative"
-              >
-                <Lock className="h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24 text-orange-500 mx-auto mb-6" />
-                <motion.div
-                  className="absolute inset-0 rounded-full bg-emerald-500/20"
-                  animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0, 0.5] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-              </motion.div>
-            </motion.div>
-            
-            <motion.h1 
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-white via-orange-200 to-orange-400 bg-clip-text text-transparent leading-tight"
-              initial={{ opacity: 0, y: 100 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-            >
-              Secure Your World with{' '}
-              <motion.span
-                className="inline-block"
-                animate={{ 
-                  backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-                }}
-                transition={{ duration: 3, repeat: Infinity }}
-                style={{
-                  background: 'linear-gradient(90deg, #fb8512, #ff8c42, #ff6b35, #fb8512)',
-                  backgroundSize: '200% 100%',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                Kazoalo Technologies
-              </motion.span>
-            </motion.h1>
-            
-            <motion.p 
-              className="text-lg sm:text-xl lg:text-2xl text-slate-300 mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed px-4"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-            >
-              Expert key and lock solutions for cars, doors, and more. Experience professional service with cutting-edge programmable solutions for all your security needs.
-            </motion.p>
-            
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-            >
-              <motion.div
-                whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(16, 185, 129, 0.3)" }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-lg px-8 py-4 rounded-full transition-all duration-300">
-                  Get Quote <ChevronRight className="ml-2 h-5 w-5" />
-                </Button>
-              </motion.div>
-              
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="border-orange-500 text-orange-400 hover:bg-orange-500 hover:text-white text-lg px-8 py-4 rounded-full transition-all duration-300"
-                >
-                  Learn More
-                </Button>
-              </motion.div>
-            </motion.div>
-          </motion.div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <div className="w-6 h-10 border-2 border-orange-500 rounded-full flex justify-center">
-            <motion.div
-              className="w-1 h-3 bg-orange-500 rounded-full mt-2"
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-          </div>
-        </motion.div>
+        <Hero />  
       </section>
 
       {/* Products Section */}
       <section id="products" className="py-16 sm:py-20 lg:py-24 bg-slate-800/50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            className="text-center mb-12 sm:mb-16 lg:mb-20"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-          >
-            <motion.div
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-            >
-              <Badge className="bg-orange-500 text-white mb-4 text-sm sm:text-base">Our Products</Badge>
-            </motion.div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6">Comprehensive Security Solutions</h2>
-            <p className="text-slate-400 text-base sm:text-lg lg:text-xl max-w-3xl mx-auto px-4">
-              Professional-grade security products for all your needs
-            </p>
-          </motion.div>
-
-          <motion.div 
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, margin: "-50px" }}
-          >
-            {[
-              {
-                icon: Key,
-                title: "Electronic Keys",
-                description: "Advanced programmable electronic key systems for modern security needs",
-                color: "from-red-500 to-orange-500"
-              },
-              {
-                icon: Lock,
-                title: "Padlocks", 
-                description: "High-quality traditional and smart padlocks for various applications",
-                color: "from-orange-500 to-red-500"
-              },
-              {
-                icon: Settings,
-                title: "Programmable Solutions",
-                description: "Cutting-edge programmable lock systems with remote access capabilities", 
-                color: "from-red-600 to-orange-600"
-              },
-              {
-                icon: Shield,
-                title: "Key Accessories",
-                description: "Complete range of key accessories and security enhancement tools",
-                color: "from-orange-600 to-red-600"
-              }
-            ].map((product, index) => (
-              <motion.div 
-                key={index} 
-                variants={fadeInUp}
-                whileHover={{ y: -10, scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Card className="bg-slate-800 border-slate-700 hover:border-orange-500 transition-all duration-500 group h-full relative overflow-hidden">
-                  <motion.div
-                    className={`absolute inset-0 bg-gradient-to-br ${product.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
-                  />
-                  <CardHeader className="text-center relative z-10 pb-4">
-                    <motion.div
-                      whileHover={{ rotate: 360, scale: 1.1 }}
-                      transition={{ duration: 0.6 }}
-                      className="mb-4"
-                    >
-                      <product.icon className="h-10 w-10 sm:h-12 sm:w-12 text-orange-500 mx-auto group-hover:text-white transition-colors duration-300" />
-                    </motion.div>
-                    <CardTitle className="text-white text-lg sm:text-xl">{product.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="relative z-10">
-                    <CardDescription className="text-slate-400 text-center text-sm sm:text-base leading-relaxed">
-                      {product.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
+      <Products />
       </section>
 
       {/* Technology Section */}
@@ -442,132 +234,16 @@ export default function KazoaloLanding() {
           className="absolute inset-0 bg-gradient-to-r from-emerald-900/10 to-transparent"
           style={{ x: yParallaxSlow }}
         />
-        
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div 
-            className="text-center mb-12 sm:mb-16 lg:mb-20"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-          >
-            <motion.div
-              initial={{ scale: 0, rotate: -180 }}
-              whileInView={{ scale: 1, rotate: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-            >
-              <Badge className="bg-orange-500 text-white mb-4 text-sm sm:text-base">Technology</Badge>
-            </motion.div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6">Innovative Solutions</h2>
-            <p className="text-slate-400 text-base sm:text-lg lg:text-xl max-w-4xl mx-auto leading-relaxed px-4">
-              Kazoalo Technologies is at the forefront of key and lock technology, offering programmable solutions that combine security with convenience.
-            </p>
-          </motion.div>
-
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-10"
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, margin: "-50px" }}
-          >
-            {[
-              {
-                title: "Advanced Security",
-                description: "Multi-layer encryption and biometric integration for maximum protection against unauthorized access.",
-                icon: Shield,
-                delay: 0
-              },
-              {
-                title: "Remote Programming",
-                description: "Cloud-based programming capabilities allowing real-time updates and management from anywhere.",
-                icon: Settings,
-                delay: 0.2
-              },
-              {
-                title: "Smart and Reliable",
-                description: "Intelligent systems with backup protocols ensuring consistent performance and emergency access options.",
-                icon: Lock,
-                delay: 0.4
-              }
-            ].map((feature, index) => (
-              <motion.div 
-                key={index} 
-                variants={fadeInUp}
-                whileHover={{ y: -15, rotateY: 5 }}
-                transition={{ duration: 0.4 }}
-              >
-                <Card className="bg-slate-800/50 border-slate-700 h-full relative overflow-hidden group">
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  />
-                  <CardHeader className="relative z-10">
-                    <motion.div
-                      whileHover={{ scale: 1.2, rotate: 15 }}
-                      transition={{ duration: 0.3 }}
-                      className="mb-4"
-                    >
-                      <feature.icon className="h-8 w-8 sm:h-10 sm:w-10 text-orange-400" />
-                    </motion.div>
-                    <CardTitle className="text-orange-400 text-lg sm:text-xl">{feature.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="relative z-10">
-                    <CardDescription className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                      {feature.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
+        <WhyChooseKazoalo />
       </section>
 
       {/* Clients & Partners */}
       <section className="py-16 sm:py-20 lg:py-24 bg-slate-800/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            className="text-center mb-12 sm:mb-16"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6">Our Clients & Partners</h2>
-            <p className="text-slate-400 text-base sm:text-lg">Trusted by leading organizations worldwide</p>
-          </motion.div>
-
-          <motion.div 
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 lg:gap-8"
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-          >
-            {Array.from({ length: 6 }, (_, i) => (
-              <motion.div 
-                key={i} 
-                variants={scaleIn}
-                whileHover={{ scale: 1.1, y: -5 }}
-                transition={{ duration: 0.3 }}
-                className="bg-slate-800 rounded-xl p-4 sm:p-6 flex items-center justify-center h-20 sm:h-24 hover:bg-slate-700 transition-all duration-300 group"
-              >
-                <motion.div 
-                  className="w-12 h-12 sm:w-16 sm:h-16 bg-emerald-500/20 rounded-lg flex items-center justify-center group-hover:bg-emerald-500/30 transition-colors duration-300"
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <Shield className="h-6 w-6 sm:h-8 sm:w-8 text-red-500" />
-                </motion.div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
+       <Partners />
       </section>
 
       {/* Testimonials */}
-      <section id="testimonials" className="py-16 sm:py-20 lg:py-24">
+      {/* <section id="testimonials" className="py-16 sm:py-20 lg:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             className="text-center mb-12 sm:mb-16 lg:mb-20"
@@ -660,82 +336,11 @@ export default function KazoaloLanding() {
             ))}
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       {/* Case Studies */}
       <section className="py-16 sm:py-20 lg:py-24 bg-slate-800/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            className="text-center mb-12 sm:mb-16 lg:mb-20"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6">Case Studies</h2>
-            <p className="text-slate-400 text-base sm:text-lg">Real-world implementations of our solutions</p>
-          </motion.div>
-
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, margin: "-50px" }}
-          >
-            {[
-              {
-                title: "Securing a Corporate Office",
-                description: "Complete security overhaul for a 500-employee corporate facility with programmable access control systems.",
-                image: "/placeholder.svg?height=300&width=400&text=Corporate+Office"
-              },
-              {
-                title: "Enhancing Home Security",
-                description: "Residential security upgrade featuring smart locks and integrated key management systems for enhanced protection.",
-                image: "/placeholder.svg?height=300&width=400&text=Home+Security"
-              },
-              {
-                title: "Streamlining Car Dealership Access",
-                description: "Comprehensive automotive key programming solution for a major car dealership with 200+ vehicles.",
-                image: "/placeholder.svg?height=300&width=400&text=Car+Dealership"
-              }
-            ].map((study, index) => (
-              <motion.div 
-                key={index} 
-                variants={fadeInUp}
-                whileHover={{ y: -15, rotateY: 2 }}
-                transition={{ duration: 0.4 }}
-              >
-                <Card className="bg-slate-800 border-slate-700 overflow-hidden hover:border-orange-500 transition-all duration-500 group h-full">
-                  <div className="aspect-video relative overflow-hidden">
-                    <motion.div
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      <Image
-                        src={study.image || "/placeholder.svg"}
-                        alt={study.title}
-                        fill
-                        className="object-cover transition-transform duration-500"
-                      />
-                    </motion.div>
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    />
-                  </div>
-                  <CardHeader>
-                    <CardTitle className="text-white text-lg sm:text-xl">{study.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                      {study.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
+        <CaseStudies />
       </section>
 
       {/* Customer Feedback Survey */}
@@ -837,7 +442,7 @@ export default function KazoaloLanding() {
       </section>
 
       {/* Social Media Updates */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-slate-800/30">
+      {/* <section className="py-16 sm:py-20 lg:py-24 bg-slate-800/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             className="text-center mb-12 sm:mb-16"
@@ -905,7 +510,7 @@ export default function KazoaloLanding() {
             ))}
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       {/* FAQ */}
       <section className="py-16 sm:py-20 lg:py-24">
@@ -1117,7 +722,7 @@ export default function KazoaloLanding() {
               className="space-y-8"
             >
               {[
-                { icon: Phone, title: "Phone", info: "+1 (555) 123-4567" },
+                { icon: Phone, title: "Phone", info: "08146120795" },
                 { icon: Mail, title: "Email", info: "info@kazoalotech.com" },
                 { icon: MapPin, title: "Address", info: "123 Security Street, Tech City, TC 12345" }
               ].map((contact, index) => (
@@ -1160,7 +765,7 @@ export default function KazoaloLanding() {
                   whileInView="animate"
                   viewport={{ once: true }}
                 >
-                  {[Facebook, Twitter, Instagram, Linkedin].map((Icon, index) => (
+                  {[Facebook, Instagram].map((Icon, index) => (
                     <motion.div
                       key={index}
                       variants={scaleIn}
@@ -1183,81 +788,9 @@ export default function KazoaloLanding() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-900 border-t border-slate-800 py-12 sm:py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12"
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-          >
-            <motion.div variants={fadeInUp}>
-              <div className="flex items-center space-x-2 mb-4 sm:mb-6">
-                <motion.div
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <Lock className="h-8 w-8 text-orange-500" />
-                </motion.div>
-                <span className="text-lg sm:text-xl font-bold">Kazoalo Technologies</span>
-              </div>
-              <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-                Your trusted partner for all security solutions. Professional key and lock services since 2020.
-              </p>
-            </motion.div>
-            
-            {[
-              {
-                title: "Products",
-                links: ["Electronic Keys", "Padlocks", "Programmable Solutions", "Key Accessories"]
-              },
-              {
-                title: "Services", 
-                links: ["Installation", "Programming", "Maintenance", "Emergency Service"]
-              },
-              {
-                title: "Company",
-                links: ["About Us", "Contact", "Privacy Policy", "Terms of Service"]
-              }
-            ].map((section, index) => (
-              <motion.div key={section.title} variants={fadeInUp}>
-                <h4 className="font-semibold text-white mb-4 sm:mb-6 text-base sm:text-lg">{section.title}</h4>
-                <ul className="space-y-2 sm:space-y-3">
-                  {section.links.map((link, linkIndex) => (
-                    <motion.li 
-                      key={link}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: linkIndex * 0.1 }}
-                    >
-                      <Link 
-                        href="#" 
-                        className="text-slate-400 hover:text-orange-400 transition-colors duration-300 text-sm sm:text-base block"
-                      >
-                        {link}
-                      </Link>
-                    </motion.li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
-          </motion.div>
-          
-          <motion.div 
-            className="border-t border-slate-800 mt-12 pt-8 text-center"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-          >
-            <p className="text-slate-400 text-sm sm:text-base">
-              &copy; 2024 Kazoalo Technologies. All rights reserved.
-            </p>
-          </motion.div>
-        </div>
-      </footer>
+     <div>
+      <Footer/>
+     </div>
 
       {/* Scroll to Top Button */}
       <motion.button

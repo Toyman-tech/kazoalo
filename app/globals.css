@@ -271,6 +271,19 @@ h1, h2, h3, h4, h5, h6 {
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* Hero component styles */
+.hero-bg-image {
+  background-image: var(--bg-image);
+}
+
+.animated-gradient-text {
+  background: linear-gradient(90deg, #fb8512, #ff8c42, #ff6b35, #fb8512);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
